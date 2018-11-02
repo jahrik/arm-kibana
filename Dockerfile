@@ -10,6 +10,7 @@ RUN groupadd -r kibana && useradd -r -m -g kibana kibana
 RUN apt-get update && apt-get install -y \
 		apt-transport-https \
 		ca-certificates \
+    gpg-agent \
     dirmngr \
 		wget \
     gpg \
