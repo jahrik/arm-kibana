@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  grafana:
+    image: jahrik/arm-kibana:aarch64
+    ports:
+      - 5601:5601
+    volumes:
+      - /mnt/g2/kibana:/data:rw
+    deploy:
+      placement:
+        constraints:
+          - node.labels.arch == aarch64
