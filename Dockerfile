@@ -44,7 +44,7 @@ RUN set -x \
 
 RUN set -ex; \
 # https://artifacts.elastic.co/GPG-KEY-elasticsearch
-	key='46095ACC8548582C1A2699A9D27D666CD88E42B4'; \
+	key='b44020ef493212247d2725f0fa23f1d5a7291b5a'; \
 	export GNUPGHOME="$(mktemp -d)"; \
 	gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
 	gpg --export "$key" > /etc/apt/trusted.gpg.d/elastic.gpg; \
