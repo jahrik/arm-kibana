@@ -1,6 +1,6 @@
-FROM aarch64/ubuntu
+FROM arm32v7/ubuntu
 
-ENV ARCH aarch64
+ENV ARCH arm32v7
 # ENV KIBANA_VERSION 5.5.2
 ENV KIBANA_VERSION 5.6.12
 
