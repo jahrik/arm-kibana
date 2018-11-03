@@ -2,7 +2,7 @@ version: '3'
 
 services:
 
-  grafana:
+  kibana:
     image: jahrik/arm-kibana:arm32v7
     environment:
       ELASTICSEARCH_URL: 'es_venus'
