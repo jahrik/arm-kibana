@@ -21,15 +21,12 @@ RUN apt-get update && apt-get install -y \
 	--no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 # grab gosu for easy step-down from root
-ENV GOSU_VERSION 1.10
-RUN wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)"
-RUN wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc"
-RUN export GNUPGHOME="$(mktemp -d)" \
-  # && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-	&& gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
-	&& rm -rf "$GNUPGHOME" /usr/local/bin/gosu.asc \
-	&& chmod +x /usr/local/bin/gosu \
-	&& gosu nobody true
+RUN set -eux; \
+	apt-get update; \
+	apt-get install -y gosu; \
+	rm -rf /var/lib/apt/lists/*; \
+# verify that the binary works
+	gosu nobody true
 
 # grab tini for signal processing and zombie killing
 ENV TINI_VERSION v0.9.0
