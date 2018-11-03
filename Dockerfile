@@ -44,6 +44,11 @@ RUN set -x \
 	&& chmod +x /usr/local/bin/tini \
 	&& tini -h
 
+RUN gpg2 --list-sigs 9A84159D7001A4E5 \
+      | grep "ID not found" \
+      | cut -c 14-29 \
+      | xargs --interactive \
+      gpg2 --keyserver hkp://keys.gnupg.net --recv-key
 RUN set -ex; \
 # https://artifacts.elastic.co/GPG-KEY-elasticsearch
 	key='b44020ef493212247d2725f0fa23f1d5a7291b5a'; \
