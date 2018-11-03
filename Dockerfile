@@ -48,6 +48,7 @@ WORKDIR ${KIBANA_HOME}
 RUN wget https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86.tar.gz
 RUN sha1sum kibana-${KIBANA_VERSION}-linux-x86.tar.gz
 RUN tar -xzf kibana-${KIBANA_VERSION}-linux-x86.tar.gz -C ${KIBANA_HOME} --strip-components 1
+RUN rm kibana-${KIBANA_VERSION}-linux-x86.tar.gz
 
 ENV PATH ${KIBANA_HOME}/bin:$PATH
 
