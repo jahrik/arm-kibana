@@ -1,6 +1,6 @@
 FROM arm32v7/ubuntu
 
-ENV ARCH arm32v7
+ENV ARCH armhf
 
 # add our user and group first to make sure their IDs get assigned consistently
 # RUN groupadd -r kibana && useradd -r -m -g kibana kibana
