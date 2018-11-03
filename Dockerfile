@@ -6,18 +6,19 @@ ENV ARCH armhf
 RUN groupadd -r kibana && useradd -r -m -g kibana kibana
 
 # dependencies
-RUN apt-get update && apt-get install -y \
-		apt-transport-https \
-		ca-certificates \
-    gpg-agent \
-    dirmngr \
-		wget \
-    gnupg2 \
-    gpg \
 # generating PDFs requires libfontconfig and libfreetype6
-		libfontconfig \
-		libfreetype6 \
-	--no-install-recommends && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y \
+  apt-transport-https \
+  ca-certificates \
+  libfontconfig \
+  libfreetype6 \
+  gpg-agent \
+  dirmngr \
+  gnupg2 \
+  nodejs \
+  wget \
+  gpg \
+  --no-install-recommends && rm -rf /var/lib/apt/lists/*
 
 # gosu
 # grab gosu for easy step-down from root
@@ -49,6 +50,7 @@ RUN wget https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-
 RUN sha1sum kibana-${KIBANA_VERSION}-linux-x86.tar.gz
 RUN tar -xzf kibana-${KIBANA_VERSION}-linux-x86.tar.gz -C ${KIBANA_HOME} --strip-components 1
 RUN rm kibana-${KIBANA_VERSION}-linux-x86.tar.gz
+RUN rm -rf ${KIBANA_HOME}/bin/node
 RUN mkdir -p /etc/kibana
 RUN ln -sf ${KIBANA_HOME}/config/kibana.yml /etc/kibana/kibana.yml
 
