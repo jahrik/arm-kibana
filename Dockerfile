@@ -2,11 +2,11 @@ FROM arm32v7/node
 
 ENV ARCH armhf
 
-# add our user and group first to make sure their IDs get assigned consistently
+# Add kibana user and group first to make sure their IDs get assigned consistently
 RUN groupadd -r kibana && useradd -r -m -g kibana kibana
 
-# dependencies
-# generating PDFs requires libfontconfig and libfreetype6
+# Dependencies
+# Generating PDFs requires libfontconfig and libfreetype6
 RUN apt-get update && apt-get install -y \
   --no-install-recommends \
   apt-transport-https \
@@ -30,7 +30,7 @@ RUN set -eux; \
 	gosu nobody true
 
 # Tini
-# grab tini for signal processing and zombie killing
+# For signal processing and zombie killing
 ENV TINI_VERSION v0.18.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-${ARCH} /usr/local/bin/tini
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-${ARCH}.asc /usr/local/bin/tini.asc
@@ -46,13 +46,20 @@ RUN tini -h
 ENV KIBANA_VERSION 5.6.12
 ENV KIBANA_HOME /usr/share/kibana
 WORKDIR ${KIBANA_HOME}
+# Install from tar file.  Didn't have much luck with the .deb file
 RUN wget https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86.tar.gz
 RUN sha1sum kibana-${KIBANA_VERSION}-linux-x86.tar.gz
 RUN tar -xzf kibana-${KIBANA_VERSION}-linux-x86.tar.gz -C ${KIBANA_HOME} --strip-components 1
 RUN rm kibana-${KIBANA_VERSION}-linux-x86.tar.gz
+# Remove the version of node packed with kibana
+# It doesn't work on the Renegade SBC
 RUN rm -rf ${KIBANA_HOME}/node
+# Symlink the version of node included with arm32v7/node
+# as the default for kibana to use instead
 RUN ln -sf /usr/local/bin/node ${KIBANA_HOME}/node
 RUN mkdir -p /etc/kibana
+# Symlink the config file changes made at run time
+# to the config file kibana uses by default
 RUN ln -sf ${KIBANA_HOME}/config/kibana.yml /etc/kibana/kibana.yml
 RUN chown -R kibana:kibana ${KIBANA_HOME}
 RUN chown -R kibana:kibana /etc/kibana/
