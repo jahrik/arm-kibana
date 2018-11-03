@@ -3,7 +3,7 @@ version: '3'
 services:
 
   kibana:
-    image: jahrik/arm-kibana:aarch64
+    image: jahrik/arm-kibana:arm64v8
     environment:
       ELASTICSEARCH_URL: 'es_venus'
     ports:

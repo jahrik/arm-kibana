@@ -1,6 +1,6 @@
-FROM aarch64/ubuntu
+FROM arm64v8/ubuntu
 
-ENV ARCH armhf
+ENV ARCH arm64
 
 # add our user and group first to make sure their IDs get assigned consistently
 RUN groupadd -r kibana && useradd -r -m -g kibana kibana
