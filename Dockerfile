@@ -41,7 +41,12 @@ RUN tini -h
 
 # Kibana
 # https://www.elastic.co/guide/en/kibana/5.5/deb.html
+# https://unix.stackexchange.com/questions/215864/running-x86-binaries-on-armv7
 ENV KIBANA_VERSION 5.6.12
+RUN dpkg --add-architecture i386
+# Then run ldd on the binary and add any required libraries; typically
+RUN apt-get install libc6:i386
+RUN apt-get update
 RUN wget https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-i386.deb
 RUN sha1sum kibana-${KIBANA_VERSION}-i386.deb
 RUN dpkg -i kibana-${KIBANA_VERSION}-i386.deb
