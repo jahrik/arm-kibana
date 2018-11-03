@@ -1,4 +1,4 @@
-FROM arm32v7/ubuntu
+FROM aarch64/ubuntu
 
 ENV ARCH armhf
 

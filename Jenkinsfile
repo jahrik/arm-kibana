@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-node('arm32v7') {
+node('aarch64') {
 
     try {
 
