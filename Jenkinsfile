@@ -1,5 +1,6 @@
 #!/usr/bin/env groovy
 
+env.ELASTICSEARCH_URL=http://es_venus:9200
 node('aarch64') {
 
     try {
