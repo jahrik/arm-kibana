@@ -43,11 +43,13 @@ RUN tini -h
 # https://www.elastic.co/guide/en/kibana/5.5/deb.html
 # https://unix.stackexchange.com/questions/215864/running-x86-binaries-on-armv7
 ENV KIBANA_VERSION 5.6.12
+ENV KIBANA_HOME /usr/share/kibana
+WORKDIR ${KIBANA_HOME}
 RUN wget https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86.tar.gz
 RUN sha1sum kibana-${KIBANA_VERSION}-linux-x86.tar.gz
-RUN tar -xzf kibana-${KIBANA_VERSION}-linux-x86.tar.gz -O /usr/share/kibana
+RUN tar -xzf kibana-${KIBANA_VERSION}-linux-x86.tar.gz
 
-ENV PATH /usr/share/kibana/bin:$PATH
+ENV PATH ${KIBANA_HOME}/bin:$PATH
 
 COPY docker-entrypoint.sh /
 
