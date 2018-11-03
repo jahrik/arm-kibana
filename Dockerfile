@@ -1,4 +1,4 @@
-FROM armhf/node
+FROM arm32v7/node
 
 ENV ARCH armhf
 
