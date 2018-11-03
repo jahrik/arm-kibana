@@ -1,6 +1,7 @@
 #!/usr/bin/env groovy
 
-env.ELASTICSEARCH_URL=http://es_venus:9200
+env.ELASTICSEARCH_URL = 'http://es_venus:9200'
+
 node('aarch64') {
 
     try {
@@ -45,6 +46,7 @@ node('master') {
         stage('provision') {
             // Ansible
             echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+            echo "ELASTICSEARCH_URL: ${env.ELASTICSEARCH_URL}"
             ansiColor('xterm') {
                 ansiblePlaybook(
                     playbook: 'playbook.yml',
