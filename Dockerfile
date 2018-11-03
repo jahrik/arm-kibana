@@ -43,10 +43,9 @@ RUN tini -h
 # https://www.elastic.co/guide/en/kibana/5.5/deb.html
 # https://unix.stackexchange.com/questions/215864/running-x86-binaries-on-armv7
 ENV KIBANA_VERSION 5.6.12
-RUN wget https://artifacts.elastic.co/downloads/kibana/kibana-5.5.3-linux-x86.tar.gz
-ADD https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86.tar.gz
-RUN sha1sum kibana-5.5.3-linux-x86.tar.gz
-RUN tar -xzf kibana-5.5.3-linux-x86.tar.gz
+RUN wget https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86.tar.gz
+RUN sha1sum kibana-${KIBANA_VERSION}-linux-x86.tar.gz
+RUN tar -xzf kibana-${KIBANA_VERSION}-linux-x86.tar.gz
 
 # RUN set -x \
 # 	&& apt-get update \
