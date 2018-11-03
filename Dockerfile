@@ -1,11 +1,11 @@
 FROM arm32v7/ubuntu
 
 ENV ARCH armhf
-ENV KIBANA_VERSION 5.6.12
 
 # add our user and group first to make sure their IDs get assigned consistently
 RUN groupadd -r kibana && useradd -r -m -g kibana kibana
 
+# dependencies
 RUN apt-get update && apt-get install -y \
 		apt-transport-https \
 		ca-certificates \
@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
 		libfreetype6 \
 	--no-install-recommends && rm -rf /var/lib/apt/lists/*
 
+# gosu
 # grab gosu for easy step-down from root
 RUN set -eux; \
 	apt-get update; \
@@ -27,6 +28,7 @@ RUN set -eux; \
 # verify that the binary works
 	gosu nobody true
 
+# Tini
 # grab tini for signal processing and zombie killing
 ENV TINI_VERSION v0.18.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-${ARCH} /usr/local/bin/tini
@@ -37,17 +39,12 @@ RUN rm -rf /usr/local/bin/tini.asc
 RUN chmod +x /usr/local/bin/tini
 RUN tini -h
 
-RUN set -ex; \
-# https://artifacts.elastic.co/GPG-KEY-elasticsearch
-	key='b44020ef493212247d2725f0fa23f1d5a7291b5a'; \
-	export GNUPGHOME="$(mktemp -d)"; \
-	gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
-	gpg --export "$key" > /etc/apt/trusted.gpg.d/elastic.gpg; \
-	rm -rf "$GNUPGHOME"; \
-	apt-key list
-
-# https://www.elastic.co/guide/en/kibana/5.0/deb.html
-RUN echo 'deb https://artifacts.elastic.co/packages/5.x/apt stable main' > /etc/apt/sources.list.d/kibana.list
+# Kibana
+# https://www.elastic.co/guide/en/kibana/5.5/deb.html
+ENV KIBANA_VERSION 5.6.12
+RUN wget https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-i386.deb
+RUN sha1sum kibana-${KIBANA_VERSION}-i386.deb
+RUN sudo dpkg -i kibana-${KIBANA_VERSION}-i386.deb
 
 RUN set -x \
 	&& apt-get update \
