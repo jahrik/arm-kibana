@@ -29,16 +29,14 @@ RUN set -eux; \
 	gosu nobody true
 
 # grab tini for signal processing and zombie killing
-ENV TINI_VERSION v0.9.0
-RUN set -x \
-	&& wget -O /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini" \
-	&& wget -O /usr/local/bin/tini.asc "https://github.com/krallin/tini/releases/download/$TINI_VERSION/tini.asc" \
-	&& export GNUPGHOME="$(mktemp -d)" \
-	&& gpg --keyserver ha.pool.sks-keyservers.net --recv-keys 6380DC428747F6C393FEACA59A84159D7001A4E5 \
-	&& gpg --batch --verify /usr/local/bin/tini.asc /usr/local/bin/tini \
-	&& rm -rf "$GNUPGHOME" /usr/local/bin/tini.asc \
-	&& chmod +x /usr/local/bin/tini \
-	&& tini -h
+ENV TINI_VERSION v0.18.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin/tini
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini.asc /usr/local/bin/tini.asc
+RUN gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 595E85A6B1B4779EA4DAAEC70B588DFF0527A9B7
+RUN gpg --verify /usr/local/bin/tini.asc
+RUN rm -rf /usr/local/bin/tini.asc
+RUN chmod +x /usr/local/bin/tini
+RUN tini -h
 
 RUN set -ex; \
 # https://artifacts.elastic.co/GPG-KEY-elasticsearch
