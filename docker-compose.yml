@@ -3,13 +3,13 @@ version: '3'
 services:
 
   kibana:
-    image: jahrik/arm-kibana:arm64v8
+    image: jahrik/arm-kibana:arm32v7
     environment:
       ELASTICSEARCH_URL: 'es_venus'
     ports:
       - 5601:5601
-    volumes:
-      - /mnt/g2/kibana:/data:rw
+    # volumes:
+      # - /mnt/g2/kibana:/data:rw
     deploy:
       placement:
         constraints:

@@ -1,5 +1,5 @@
 IMAGE = "jahrik/arm-kibana"
-TAG = "arm64v8"
+TAG = "arm32v7"
 STACK = "monitor"
 
 all: build

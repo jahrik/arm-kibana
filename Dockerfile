@@ -1,9 +1,9 @@
-FROM arm64v8/ubuntu
+FROM arm32v7/ubuntu
 
-ENV ARCH arm64
+ENV ARCH arm32v7
 
 # add our user and group first to make sure their IDs get assigned consistently
-RUN groupadd -r kibana && useradd -r -m -g kibana kibana
+# RUN groupadd -r kibana && useradd -r -m -g kibana kibana
 
 # dependencies
 RUN apt-get update && apt-get install -y \
