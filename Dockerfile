@@ -1,4 +1,4 @@
-FROM arm32v7/ubuntu
+FROM armhf/node
 
 ENV ARCH armhf
 
