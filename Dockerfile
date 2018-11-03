@@ -16,7 +16,6 @@ RUN apt-get update && apt-get install -y \
   gpg-agent \
   dirmngr \
   gnupg2 \
-  nodejs \
   wget \
   gpg
 RUN rm -rf /var/lib/apt/lists/*
