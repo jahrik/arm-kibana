@@ -8,6 +8,7 @@ RUN groupadd -r kibana && useradd -r -m -g kibana kibana
 # dependencies
 # generating PDFs requires libfontconfig and libfreetype6
 RUN apt-get update && apt-get install -y \
+  --no-install-recommends \
   apt-transport-https \
   ca-certificates \
   libfontconfig \
@@ -17,8 +18,8 @@ RUN apt-get update && apt-get install -y \
   gnupg2 \
   nodejs \
   wget \
-  gpg \
-  --no-install-recommends && rm -rf /var/lib/apt/lists/*
+  gpg
+RUN rm -rf /var/lib/apt/lists/*
 
 # gosu
 # grab gosu for easy step-down from root
