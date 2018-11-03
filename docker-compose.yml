@@ -5,7 +5,7 @@ services:
   kibana:
     image: jahrik/arm-kibana:arm32v7
     environment:
-      ELASTICSEARCH_URL: 'es_venus'
+      ELASTICSEARCH_URL: 'http://oroku:9200'
     ports:
       - 5601:5601
     # volumes:
