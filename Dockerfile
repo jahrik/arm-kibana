@@ -43,26 +43,23 @@ RUN tini -h
 # https://www.elastic.co/guide/en/kibana/5.5/deb.html
 # https://unix.stackexchange.com/questions/215864/running-x86-binaries-on-armv7
 ENV KIBANA_VERSION 5.6.12
-RUN dpkg --add-architecture i386
-# Then run ldd on the binary and add any required libraries; typically
-RUN apt-get install libc6:i386
-RUN apt-get update
-RUN wget https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-i386.deb
-RUN sha1sum kibana-${KIBANA_VERSION}-i386.deb
-RUN dpkg -i kibana-${KIBANA_VERSION}-i386.deb
+RUN wget https://artifacts.elastic.co/downloads/kibana/kibana-5.5.3-linux-x86.tar.gz
+ADD https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86.tar.gz
+RUN sha1sum kibana-5.5.3-linux-x86.tar.gz
+RUN tar -xzf kibana-5.5.3-linux-x86.tar.gz
 
-RUN set -x \
-	&& apt-get update \
-	&& apt-get install -y --no-install-recommends kibana=$KIBANA_VERSION \
-	&& rm -rf /var/lib/apt/lists/* \
-	\
-# the default "server.host" is "localhost" in 5+
-	&& sed -ri "s!^(\#\s*)?(server\.host:).*!\2 '0.0.0.0'!" /etc/kibana/kibana.yml \
-	&& grep -q "^server\.host: '0.0.0.0'\$" /etc/kibana/kibana.yml \
-	\
-# ensure the default configuration is useful when using --link
-	&& sed -ri "s!^(\#\s*)?(elasticsearch\.url:).*!\2 'http://elasticsearch:9200'!" /etc/kibana/kibana.yml \
-	&& grep -q "^elasticsearch\.url: 'http://elasticsearch:9200'\$" /etc/kibana/kibana.yml
+# RUN set -x \
+# 	&& apt-get update \
+# 	&& apt-get install -y --no-install-recommends kibana=$KIBANA_VERSION \
+# 	&& rm -rf /var/lib/apt/lists/* \
+# 	\
+# # the default "server.host" is "localhost" in 5+
+# 	&& sed -ri "s!^(\#\s*)?(server\.host:).*!\2 '0.0.0.0'!" /etc/kibana/kibana.yml \
+# 	&& grep -q "^server\.host: '0.0.0.0'\$" /etc/kibana/kibana.yml \
+# 	\
+# # ensure the default configuration is useful when using --link
+# 	&& sed -ri "s!^(\#\s*)?(elasticsearch\.url:).*!\2 'http://elasticsearch:9200'!" /etc/kibana/kibana.yml \
+# 	&& grep -q "^elasticsearch\.url: 'http://elasticsearch:9200'\$" /etc/kibana/kibana.yml
 
 ENV PATH /usr/share/kibana/bin:$PATH
 
