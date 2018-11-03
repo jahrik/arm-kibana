@@ -24,7 +24,7 @@ RUN gpg2 --list-sigs 9A84159D7001A4E5 \
       | grep "ID not found" \
       | cut -c 14-29 \
       | xargs --interactive \
-      gpg2 --keyserver hkp://keys.gnupg.net --recv-key
+      gpg2 --keyserver ha.pool.sks-keyservers.net  --recv-key
 
 # grab gosu for easy step-down from root
 ENV GOSU_VERSION 1.10
