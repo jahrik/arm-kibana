@@ -45,20 +45,7 @@ RUN tini -h
 ENV KIBANA_VERSION 5.6.12
 RUN wget https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-linux-x86.tar.gz
 RUN sha1sum kibana-${KIBANA_VERSION}-linux-x86.tar.gz
-RUN tar -xzf kibana-${KIBANA_VERSION}-linux-x86.tar.gz
-
-# RUN set -x \
-# 	&& apt-get update \
-# 	&& apt-get install -y --no-install-recommends kibana=$KIBANA_VERSION \
-# 	&& rm -rf /var/lib/apt/lists/* \
-# 	\
-# # the default "server.host" is "localhost" in 5+
-# 	&& sed -ri "s!^(\#\s*)?(server\.host:).*!\2 '0.0.0.0'!" /etc/kibana/kibana.yml \
-# 	&& grep -q "^server\.host: '0.0.0.0'\$" /etc/kibana/kibana.yml \
-# 	\
-# # ensure the default configuration is useful when using --link
-# 	&& sed -ri "s!^(\#\s*)?(elasticsearch\.url:).*!\2 'http://elasticsearch:9200'!" /etc/kibana/kibana.yml \
-# 	&& grep -q "^elasticsearch\.url: 'http://elasticsearch:9200'\$" /etc/kibana/kibana.yml
+RUN tar -xzf kibana-${KIBANA_VERSION}-linux-x86.tar.gz -O /usr/share/kibana
 
 ENV PATH /usr/share/kibana/bin:$PATH
 
