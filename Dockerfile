@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     gpg-agent \
     dirmngr \
 		wget \
+    gnupg2 \
     gpg \
 # generating PDFs requires libfontconfig and libfreetype6
 		libfontconfig \
