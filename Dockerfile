@@ -1,7 +1,6 @@
 FROM arm32v7/ubuntu
 
-ENV ARCH arm32v7
-# ENV KIBANA_VERSION 5.5.2
+ENV ARCH armhf
 ENV KIBANA_VERSION 5.6.12
 
 # add our user and group first to make sure their IDs get assigned consistently
@@ -30,8 +29,8 @@ RUN set -eux; \
 
 # grab tini for signal processing and zombie killing
 ENV TINI_VERSION v0.18.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-$(dpkg --print-architecture) /usr/local/bin/tini
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-$(dpkg --print-architecture).asc /usr/local/bin/tini.asc
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-${ARCH} /usr/local/bin/tini
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-${ARCH}.asc /usr/local/bin/tini.asc
 RUN gpg --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 595E85A6B1B4779EA4DAAEC70B588DFF0527A9B7
 RUN gpg --verify /usr/local/bin/tini.asc
 RUN rm -rf /usr/local/bin/tini.asc
