@@ -52,6 +52,7 @@ RUN tar -xzf kibana-${KIBANA_VERSION}-linux-x86.tar.gz -C ${KIBANA_HOME}
 ENV PATH ${KIBANA_HOME}/bin:$PATH
 
 COPY docker-entrypoint.sh /
+RUN chmod +x /docker-entrypoint.sh
 
 EXPOSE 5601
 ENTRYPOINT ["/docker-entrypoint.sh"]
