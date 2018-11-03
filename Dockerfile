@@ -54,6 +54,8 @@ RUN rm -rf ${KIBANA_HOME}/node
 RUN ln -sf /usr/local/bin/node ${KIBANA_HOME}/node
 RUN mkdir -p /etc/kibana
 RUN ln -sf ${KIBANA_HOME}/config/kibana.yml /etc/kibana/kibana.yml
+RUN chown -R kibana:kibana ${KIBANA_HOME}
+RUN chown -R kibana:kibana /etc/kibana/
 
 ENV PATH ${KIBANA_HOME}/bin:$PATH
 
