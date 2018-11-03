@@ -44,7 +44,7 @@ RUN tini -h
 ENV KIBANA_VERSION 5.6.12
 RUN wget https://artifacts.elastic.co/downloads/kibana/kibana-${KIBANA_VERSION}-i386.deb
 RUN sha1sum kibana-${KIBANA_VERSION}-i386.deb
-RUN sudo dpkg -i kibana-${KIBANA_VERSION}-i386.deb
+RUN dpkg -i kibana-${KIBANA_VERSION}-i386.deb
 
 RUN set -x \
 	&& apt-get update \
