@@ -1,6 +1,6 @@
 IMAGE = "jahrik/arm-kibana"
 TAG = "arm32v7"
-STACK = "monitor"
+STACK = "elk"
 
 all: build
 
