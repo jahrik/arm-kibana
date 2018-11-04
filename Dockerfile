@@ -66,6 +66,13 @@ RUN chown -R kibana:kibana /etc/kibana/
 
 ENV PATH ${KIBANA_HOME}/bin:$PATH
 
+# the default "server.host" is "localhost" in 5+
+RUN sed -ri "s!^(\#\s*)?(server\.host:).*!\2 '0.0.0.0'!" ${KIBANA_HOME}/config/kibana.yml
+RUN grep -q "^server\.host: '0.0.0.0'\$" ${KIBANA_HOME}/config/kibana.yml
+# ensure the default configuration is useful when using --link
+RUN sed -ri "s!^(\#\s*)?(elasticsearch\.url:).*!\2 'http://elasticsearch:9200'!" ${KIBANA_HOME}/config/kibana.yml
+RUN grep -q "^elasticsearch\.url: 'http://elasticsearch:9200'\$" ${KIBANA_HOME}/config/kibana.yml
+
 COPY docker-entrypoint.sh /
 RUN chmod +x /docker-entrypoint.sh
 
