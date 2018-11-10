@@ -5,6 +5,8 @@
   tasks:
     - name: Create persistent data dir
       file:
-        path: /mnt/g2/kibana
+        path: /mnt/g1/kibana
         state: directory
+        owner: 999
+        group: 999
         mode: 0755
