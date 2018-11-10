@@ -8,8 +8,8 @@ services:
       ELASTICSEARCH_URL: "${ELASTICSEARCH_URL}"
     ports:
       - 5601:5601
-    volumes:
-      - /mnt/g1/kibana:/usr/share/kibana:rw
+    # volumes:
+      # - /mnt/g1/kibana:/usr/share/kibana:rw
     deploy:
       placement:
         constraints:
