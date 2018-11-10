@@ -9,7 +9,7 @@ services:
     ports:
       - 5601:5601
     volumes:
-      - /mnt/g1/kibana:/data:rw
+      - /mnt/g1/kibana:/usr/share/kibana:rw
     deploy:
       placement:
         constraints:
