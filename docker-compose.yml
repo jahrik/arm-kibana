@@ -11,6 +11,8 @@ services:
     # volumes:
       # - /mnt/g1/kibana:/usr/share/kibana:rw
     deploy:
+      labels:
+        traefik.docker.network: traefik
       placement:
         constraints:
           - node.labels.arch == aarch64
