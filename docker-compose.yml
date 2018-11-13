@@ -19,7 +19,6 @@ services:
         traefik.port: 5601
         traefik.frontend.rule: Host:kibana.homelab.business
         traefik.frontend.entryPoints: http
-        traefik.docker.network: traefik
       placement:
         constraints:
           - node.labels.arch == aarch64
