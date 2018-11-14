@@ -15,11 +15,11 @@ services:
       - elk
     deploy:
       labels:
-        traefik.docker.network: traefik
+        traefik.enable: 1
         traefik.backend: kibana
+        traefik.docker.network: traefik
         traefik.port: 5601
         traefik.frontend.rule: Host:kibana.homelab.business
-        traefik.frontend.entryPoints: http
       placement:
         constraints:
           - node.labels.arch == aarch64
