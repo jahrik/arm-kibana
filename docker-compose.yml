@@ -15,7 +15,7 @@ services:
       - elk
     deploy:
       labels:
-        traefik.enable: 0
+        traefik.enable: 1
         traefik.backend: kibana
         traefik.docker.network: traefik
         traefik.port: 5601
