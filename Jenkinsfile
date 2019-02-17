@@ -2,7 +2,7 @@
 
 env.ELASTICSEARCH_URL = 'http://es_leona:9200'
 
-node('arm32v7') {
+node('armv7l') {
 
   try {
 
