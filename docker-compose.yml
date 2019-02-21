@@ -6,16 +6,12 @@ services:
     image: jahrik/arm-kibana:arm32v7
     environment:
       ELASTICSEARCH_URL: "${ELASTICSEARCH_URL}"
-    ports:
-      - 5601:5601
-    # volumes:
-      # - /mnt/g1/kibana:/usr/share/kibana:rw
     networks:
       - traefik
       - elk
     deploy:
       labels:
-        traefik.enable: 0
+        traefik.enable: 1
         traefik.backend: kibana
         traefik.docker.network: traefik
         traefik.port: 5601
