@@ -1,7 +1,5 @@
 #!/usr/bin/env groovy
 
-env.ELASTICSEARCH_URL = 'http://es_leona:9200'
-
 node('armv7l') {
 
   try {
@@ -35,7 +33,7 @@ node('ansible') {
     }
 
     stage('provision') {
-      echo "ELASTICSEARCH_URL: ${env.ELASTICSEARCH_URL}"
+      echo "ELASTICSEARCH_URL: elasticsearch-url"
       ansiColor('xterm') {
         ansiblePlaybook(
           playbook: 'playbook.yml',
