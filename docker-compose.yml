@@ -1,11 +1,10 @@
-version: '3'
-
+---
 services:
 
   kibana:
-    image: jahrik/arm-kibana:arm32v7
+    image: jahrik/arm-kibana:latest
     environment:
-      ELASTICSEARCH_URL: "${ELASTICSEARCH_URL}"
+      ELASTICSEARCH_HOSTS: "${ELASTICSEARCH_HOSTS:-http://elasticsearch:9200}"
     networks:
       - traefik
       - elk
@@ -16,9 +15,6 @@ services:
         traefik.docker.network: traefik
         traefik.port: 5601
         traefik.frontend.rule: Host:kibana.homelab.business
-      placement:
-        constraints:
-          - node.labels.arch == aarch64
 
 networks:
   traefik:

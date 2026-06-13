@@ -1,5 +1,6 @@
+.EXPORT_ALL_VARIABLES:
 IMAGE = "jahrik/arm-kibana"
-TAG := $(shell uname -m)
+TAG = latest
 STACK = "elk"
 
 all: build
