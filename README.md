@@ -14,15 +14,15 @@ docker run -d -p 5601:5601 -e ELASTICSEARCH_HOSTS=http://elasticsearch:9200 jahr
 
 ```bash
 docker network create -d overlay elk   # once
-make deploy                            # stack: elk, behind traefik
+just deploy                            # stack: elk, behind traefik
 ansible-playbook playbook.yml          # create /mnt/g1/kibana on cluster nodes
 ```
 
 ## Build
 
 ```bash
-make build
-make push
+just build
+just push
 ```
 
 CI: PR builds + HTTP check; merge to main pushes multi-arch (amd64/arm64) to Docker Hub. No armv7: modern Kibana is 64-bit only.
