@@ -5,9 +5,9 @@ Multi-arch Kibana image: pinned `FROM` over official `docker.elastic.co/kibana/k
 ## Commands
 
 ```bash
-make build                                  # build jahrik/arm-kibana:latest
+just build                                  # build jahrik/arm-kibana:latest
 docker run -d -p 5601:5601 jahrik/arm-kibana:latest   # /api/status answers degraded without ES
-make deploy                                 # swarm stack deploy (stack: elk)
+just deploy                                 # swarm stack deploy (stack: elk)
 ```
 
 ## CI
